@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { BsEmojiSmileFill } from "react-icons/bs";
 import { IoMdSend } from "react-icons/io";
-import styled from "styled-components";
 import Picker from "emoji-picker-react";
 
 export default function ChatInput({ handleSendMsg }) {
@@ -44,151 +43,123 @@ export default function ChatInput({ handleSendMsg }) {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
+  // Inline styles
+  const styles = {
+    container: {
+      display: "grid",
+      gridTemplateColumns: "7% 93%",
+      backgroundColor: "#FFF5E1",
+      padding: "0.5rem 2rem",
+      fontFamily: "'Inter', 'Poppins', sans-serif",
+      alignItems: "center",
+      position: "relative",
+    },
+    buttonContainer: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-start",
+      color: "#FF6B35",
+    },
+    emojiButton: {
+      fontSize: "1.5rem",
+      cursor: "pointer",
+      transition: "all 0.3s ease",
+    },
+    emojiButtonHover: {
+      color: "#FF8B4D",
+      transform: "scale(1.1)",
+    },
+    inputContainer: {
+      width: "100%",
+      display: "flex",
+      alignItems: "center",
+      gap: "1rem",
+      backgroundColor: "#FFFFFF",
+      border: "1px solid #FF6B35",
+      borderRadius: "2rem",
+      padding: "0.5rem 1rem",
+    },
+    input: {
+      width: "100%",
+      border: "none",
+      outline: "none",
+      background: "transparent",
+      fontSize: "1rem",
+      color: "#333",
+    },
+    placeholder: {
+      color: "#AAA",
+    },
+    button: {
+      backgroundColor: "#FF6B35",
+      border: "none",
+      borderRadius: "50%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "0.5rem",
+      cursor: "pointer",
+      transition: "all 0.3s ease",
+    },
+    buttonHover: {
+      backgroundColor: "#FF8B4D",
+    },
+    buttonDisabled: {
+      backgroundColor: "#CCC",
+      cursor: "not-allowed",
+    },
+  };
+
   return (
-    <Container>
-      <div className="button-container">
-        <div className="emoji" ref={emojiButtonRef}>
-          <BsEmojiSmileFill onClick={handleEmojiPickerhideShow} />
+    <div style={styles.container}>
+      <div style={styles.buttonContainer}>
+        <div ref={emojiButtonRef}>
+          <BsEmojiSmileFill
+            style={styles.emojiButton}
+            onClick={handleEmojiPickerhideShow}
+          />
           {showEmojiPicker && (
-            <div ref={emojiPickerRef} className="emoji-picker-wrapper">
+            <div
+              ref={emojiPickerRef}
+              style={{
+                position: "absolute",
+                top: "-400px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                zIndex: "10",
+              }}
+            >
               <Picker onEmojiClick={handleEmojiClick} height={350} width={300} />
             </div>
           )}
         </div>
       </div>
-      <form className="input-container" onSubmit={sendChat}>
+      <form style={styles.inputContainer} onSubmit={sendChat}>
         <input
           type="text"
           placeholder="Type your message here"
           onChange={(e) => setMsg(e.target.value)}
           value={msg}
           maxLength={500}
+          style={styles.input}
         />
-        <button type="submit" disabled={msg.trim().length === 0}>
+        <button
+          type="submit"
+          disabled={msg.trim().length === 0}
+          style={{
+            ...styles.button,
+            ...(msg.trim().length === 0 ? styles.buttonDisabled : {}),
+          }}
+        >
           <IoMdSend />
         </button>
       </form>
-    </Container>
+    </div>
   );
 }
-
-const Container = styled.div`
-  display: grid;
-  grid-template-columns: 7% 93%;
-  background-color: #FFF5E1;
-  padding: 0 2rem;
-  font-family: 'Inter', 'Poppins', sans-serif;
-  position: relative;
-
-  @media screen and (max-width: 768px) {
-    padding: 0 1rem;
-    grid-template-columns: 12% 88%;
-  }
-
-  .button-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    color: #FF6B35;
-    position: relative;
-
-    .emoji {
-      position: relative;
-
-      svg {
-        font-size: 1.5rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-
-        &:hover {
-          color: #FF8B4D;
-          transform: scale(1.1);
-        }
-      }
-
-      .emoji-picker-wrapper {
-        position: absolute;
-        top: -400px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10;
-
-        @media screen and (max-width: 768px) {
-          top: -300px;
-        }
-      }
-    }
-  }
-
-  .input-container {
-    width: 100%;
-    border-radius: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background-color: white;
-    border: 1px solid #FF6B35;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
-
-    &:focus-within {
-      box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.3);
-    }
-
-    input {
-      flex-grow: 1;
-      background-color: transparent;
-      color: #333;
-      border: none;
-      font-size: 1rem;
-      font-family: 'Inter', 'Poppins', sans-serif;
-
-      &::placeholder {
-        color: #888;
-      }
-
-      &::selection {
-        background-color: #FF6B35;
-        color: white;
-      }
-
-      &:focus {
-        outline: none;
-      }
-    }
-
-    button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #FF6B35;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-
-      &:disabled {
-        background-color: #CCCCCC;
-        cursor: not-allowed;
-      }
-
-      svg {
-        font-size: 1.5rem;
-        color: white;
-      }
-
-      &:not(:disabled):hover {
-        background-color: #FF8B4D;
-        transform: scale(1.05);
-      }
-    }
-  }
-`;
