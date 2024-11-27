@@ -10,16 +10,19 @@ export default function ChatInput({ handleSendMsg }) {
   const emojiPickerRef = useRef(null);
   const emojiButtonRef = useRef(null);
 
+  // Toggle emoji picker visibility
   const handleEmojiPickerhideShow = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
 
+  // Handle emoji selection
   const handleEmojiClick = (event, emojiObject) => {
     let message = msg;
     message += emojiObject.emoji;
     setMsg(message);
   };
 
+  // Send message
   const sendChat = (event) => {
     event.preventDefault();
     if (msg.trim().length > 0) {
@@ -32,9 +35,9 @@ export default function ChatInput({ handleSendMsg }) {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
-        emojiPickerRef.current && 
+        emojiPickerRef.current &&
         !emojiPickerRef.current.contains(event.target) &&
-        emojiButtonRef.current && 
+        emojiButtonRef.current &&
         !emojiButtonRef.current.contains(event.target)
       ) {
         setShowEmojiPicker(false);
@@ -54,11 +57,7 @@ export default function ChatInput({ handleSendMsg }) {
           <BsEmojiSmileFill onClick={handleEmojiPickerhideShow} />
           {showEmojiPicker && (
             <div ref={emojiPickerRef} className="emoji-picker-wrapper">
-              <Picker 
-                onEmojiClick={handleEmojiClick} 
-                height={350}
-                width={300}
-              />
+              <Picker onEmojiClick={handleEmojiClick} height={350} width={300} />
             </div>
           )}
         </div>
@@ -81,21 +80,21 @@ export default function ChatInput({ handleSendMsg }) {
 
 const Container = styled.div`
   display: grid;
-  align-items: center;
-  grid-template-columns: 5% 95%;
+  grid-template-columns: 7% 93%;
   background-color: #FFF5E1;
   padding: 0 2rem;
   font-family: 'Inter', 'Poppins', sans-serif;
   position: relative;
-  
+
   @media screen and (max-width: 768px) {
     padding: 0 1rem;
-    grid-template-columns: 10% 90%;
+    grid-template-columns: 12% 88%;
   }
 
   .button-container {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     color: #FF6B35;
     position: relative;
 
@@ -106,7 +105,7 @@ const Container = styled.div`
         font-size: 1.5rem;
         cursor: pointer;
         transition: all 0.3s ease;
-        
+
         &:hover {
           color: #FF8B4D;
           transform: scale(1.1);
@@ -115,12 +114,13 @@ const Container = styled.div`
 
       .emoji-picker-wrapper {
         position: absolute;
-        top: -360px;
-        left: -50%;
+        top: -400px;
+        left: 50%;
+        transform: translateX(-50%);
         z-index: 10;
-        
+
         @media screen and (max-width: 768px) {
-          left: -100%;
+          top: -300px;
         }
       }
     }
