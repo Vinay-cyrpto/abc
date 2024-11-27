@@ -6,6 +6,7 @@ export default function Contacts({ contacts, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
+
   useEffect(async () => {
     const data = await JSON.parse(
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
@@ -13,10 +14,12 @@ export default function Contacts({ contacts, changeChat }) {
     setCurrentUserName(data.username);
     setCurrentUserImage(data.avatarImage);
   }, []);
+
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
     changeChat(contact);
   };
+
   return (
     <>
       {currentUserImage && currentUserImage && (
@@ -64,82 +67,106 @@ export default function Contacts({ contacts, changeChat }) {
     </>
   );
 }
+
 const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 75% 15%;
   overflow: hidden;
-  background-color: #080420;
+  background-color: #FF6B35;
+  font-family: 'Inter', sans-serif;
+
   .brand {
     display: flex;
     align-items: center;
     gap: 1rem;
     justify-content: center;
+    background-color: #FF9F1C;
+    padding: 1rem 0;
+
     img {
       height: 2rem;
+      filter: brightness(0) invert(1);
     }
     h3 {
       color: white;
       text-transform: uppercase;
+      font-weight: 600;
     }
   }
+
   .contacts {
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow: auto;
     gap: 0.8rem;
+    background-color: #FFF5E1;
+    padding-top: 1rem;
+
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
-        background-color: #ffffff39;
+        background-color: #FF6B3560;
         width: 0.1rem;
         border-radius: 1rem;
       }
     }
+
     .contact {
-      background-color: #ffffff34;
+      background-color: #FFFFFF;
       min-height: 5rem;
       cursor: pointer;
       width: 90%;
-      border-radius: 0.2rem;
+      border-radius: 10px;
       padding: 0.4rem;
       display: flex;
       gap: 1rem;
       align-items: center;
-      transition: 0.5s ease-in-out;
+      transition: 0.3s ease-in-out;
+      box-shadow: 0 4px 6px rgba(255, 107, 53, 0.1);
+
       .avatar {
         img {
           height: 3rem;
+          border-radius: 50%;
         }
       }
       .username {
         h3 {
-          color: white;
+          color: #333;
+          font-weight: 500;
         }
       }
     }
     .selected {
-      background-color: #9a86f3;
+      background-color: #FF9F1C;
+      .username h3 {
+        color: white;
+      }
     }
   }
 
   .current-user {
-    background-color: #0d0d30;
+    background-color: #FF9F1C;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 2rem;
+    
     .avatar {
       img {
         height: 4rem;
         max-inline-size: 100%;
+        border-radius: 50%;
       }
     }
     .username {
       h2 {
         color: white;
+        font-weight: 600;
       }
     }
+
     @media screen and (min-width: 720px) and (max-width: 1080px) {
       gap: 0.5rem;
       .username {

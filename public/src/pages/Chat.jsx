@@ -14,6 +14,7 @@ export default function Chat() {
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
+
   useEffect(async () => {
     if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
       navigate("/login");
@@ -25,6 +26,7 @@ export default function Chat() {
       );
     }
   }, []);
+
   useEffect(() => {
     if (currentUser) {
       socket.current = io(host);
@@ -42,9 +44,11 @@ export default function Chat() {
       }
     }
   }, [currentUser]);
+
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };
+
   return (
     <>
       <Container>
@@ -69,13 +73,19 @@ const Container = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: #131324;
+  background-color: #FFF5E1;
+  font-family: 'Inter', sans-serif;
+
   .container {
     height: 85vh;
     width: 85vw;
-    background-color: #00000076;
+    background-color: #FFFFFF;
+    box-shadow: 0 10px 25px rgba(255, 107, 53, 0.1);
     display: grid;
     grid-template-columns: 25% 75%;
+    border-radius: 20px;
+    overflow: hidden;
+
     @media screen and (min-width: 720px) and (max-width: 1080px) {
       grid-template-columns: 35% 65%;
     }

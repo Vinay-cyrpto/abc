@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { setAvatarRoute } from "../utils/APIRoutes";
+
 export default function SetAvatar() {
   const api = `https://api.multiavatar.com/4645646`;
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function SetAvatar() {
     theme: "dark",
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY))
       navigate("/login");
   }, []);
@@ -52,18 +53,22 @@ export default function SetAvatar() {
     }
   };
 
-  useEffect(async () => {
-    const data = [];
-    for (let i = 0; i < 4; i++) {
-      const image = await axios.get(
-        `${api}/${Math.round(Math.random() * 1000)}`
-      );
-      const buffer = new Buffer(image.data);
-      data.push(buffer.toString("base64"));
-    }
-    setAvatars(data);
-    setIsLoading(false);
+  useEffect(() => {
+    const fetchAvatars = async () => {
+      const data = [];
+      for (let i = 0; i < 4; i++) {
+        const image = await axios.get(
+          `${api}/${Math.round(Math.random() * 1000)}`
+        );
+        const buffer = new Buffer(image.data);
+        data.push(buffer.toString("base64"));
+      }
+      setAvatars(data);
+      setIsLoading(false);
+    };
+    fetchAvatars();
   }, []);
+
   return (
     <>
       {isLoading ? (
@@ -79,6 +84,7 @@ export default function SetAvatar() {
             {avatars.map((avatar, index) => {
               return (
                 <div
+                  key={index}
                   className={`avatar ${
                     selectedAvatar === index ? "selected" : ""
                   }`}
@@ -86,7 +92,6 @@ export default function SetAvatar() {
                   <img
                     src={`data:image/svg+xml;base64,${avatar}`}
                     alt="avatar"
-                    key={avatar}
                     onClick={() => setSelectedAvatar(index)}
                   />
                 </div>
@@ -104,24 +109,32 @@ export default function SetAvatar() {
 }
 
 const Container = styled.div`
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 3rem;
-  background-color: #131324;
+  background-color: #FFF5E1;
   height: 100vh;
   width: 100vw;
+  font-family: 'Poppins', sans-serif;
 
   .loader {
     max-inline-size: 100%;
+    max-height: 200px;
   }
 
   .title-container {
     h1 {
-      color: white;
+      color: #FF6B35;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 1rem;
     }
   }
+
   .avatars {
     display: flex;
     gap: 2rem;
@@ -133,28 +146,43 @@ const Container = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: 0.5s ease-in-out;
+      transition: 0.3s ease-in-out;
+      cursor: pointer;
+
       img {
         height: 6rem;
-        transition: 0.5s ease-in-out;
+        transition: 0.3s ease-in-out;
+        border-radius: 50%;
+      }
+
+      &:hover {
+        transform: scale(1.05);
       }
     }
+
     .selected {
-      border: 0.4rem solid #4e0eff;
+      border: 0.4rem solid #FF6B35;
+      box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
     }
   }
+
   .submit-btn {
-    background-color: #4e0eff;
+    background-color: #FF6B35;
     color: white;
     padding: 1rem 2rem;
     border: none;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
-    border-radius: 0.4rem;
+    border-radius: 0.5rem;
     font-size: 1rem;
     text-transform: uppercase;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+
     &:hover {
-      background-color: #4e0eff;
+      background-color: #FF8B4D;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(255, 107, 53, 0.2);
     }
   }
 `;

@@ -17,6 +17,7 @@ export default function Login() {
     draggable: true,
     theme: "dark",
   };
+
   useEffect(() => {
     if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
       navigate("/");
@@ -55,7 +56,6 @@ export default function Login() {
           process.env.REACT_APP_LOCALHOST_KEY,
           JSON.stringify(data.user)
         );
-
         navigate("/");
       }
     }
@@ -94,6 +94,8 @@ export default function Login() {
 }
 
 const FormContainer = styled.div`
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -101,63 +103,92 @@ const FormContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: #131324;
+  background-color: #FFF5E1;
+  font-family: 'Poppins', sans-serif;
+
   .brand {
     display: flex;
     align-items: center;
     gap: 1rem;
     justify-content: center;
+    margin-bottom: 1.5rem;
+
     img {
-      height: 5rem;
+      height: 4rem;
+      filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.07));
     }
+
     h1 {
-      color: white;
+      color: #FF6B35;
       text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 2px;
     }
   }
 
   form {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    background-color: #00000076;
-    border-radius: 2rem;
-    padding: 5rem;
+    gap: 1.5rem;
+    background-color: white;
+    border-radius: 1rem;
+    padding: 3rem 4rem;
+    box-shadow: 0 10px 25px rgba(255, 107, 53, 0.1);
+    width: 100%;
+    max-width: 450px;
   }
+
   input {
-    background-color: transparent;
+    background-color: #FFF5E1;
     padding: 1rem;
-    border: 0.1rem solid #4e0eff;
-    border-radius: 0.4rem;
-    color: white;
+    border: 0.1rem solid #FF6B35;
+    border-radius: 0.5rem;
+    color: #333;
     width: 100%;
     font-size: 1rem;
+    transition: all 0.3s ease;
+
     &:focus {
-      border: 0.1rem solid #997af0;
+      border-color: #FF6B35;
       outline: none;
+      box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
     }
   }
+
   button {
-    background-color: #4e0eff;
+    background-color: #FF6B35;
     color: white;
     padding: 1rem 2rem;
     border: none;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
-    border-radius: 0.4rem;
+    border-radius: 0.5rem;
     font-size: 1rem;
     text-transform: uppercase;
+    transition: all 0.3s ease;
+
     &:hover {
-      background-color: #4e0eff;
+      background-color: #FF8B4D;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(255, 107, 53, 0.2);
     }
   }
+
   span {
-    color: white;
+    color: #333;
     text-transform: uppercase;
+    text-align: center;
+    font-size: 0.9rem;
+
     a {
-      color: #4e0eff;
+      color: #FF6B35;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #FF8B4D;
+      }
     }
   }
 `;
