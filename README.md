@@ -19,8 +19,8 @@ Both should be installed and make sure mongodb is running.
 
 #### First Method
 ```shell
-git clone https://github.com/koolkishan/chat-app-react-nodejs
-cd chat-app-react-nodejs
+git clone https://github.com/Vinay-cyrpto/kuvaka-chatroom
+cd kuvaka-chatroom
 ```
 Now rename env files from .env.example to .env
 ```shell
@@ -31,6 +31,8 @@ cd server
 mv .env.example .env
 cd ..
 ```
+you can use this mongoDB connection:
+MONGO_URL="mongodb+srv://vinaypatelknw:HRZxOGE2TyWhUWtJ@cluster0.woa4j.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/chat"
 
 Now install the dependencies
 ```shell
