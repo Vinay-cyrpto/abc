@@ -1,12 +1,12 @@
 # Kuvaka Chatroom - Chat Application 
-Kuvaka Chatroom is chat application build with the power of MERN Stack. You can find the tutorial [here](https://www.youtube.com/watch?v=otaQKODEUFs)
+Kuvaka Chatroom is chat application build with the power of MERN Stack.
 
 
-![login page](./images/Kuvaka Chatroom_login.png)
+![login page](./images/Kuvaka_Chatroom_login.png)
 
-![register page](./images/Kuvaka Chatroom_register.png)
+![register page](./images/Kuvaka_Chatroom_register.png)
 
-![home page](./images/Kuvaka Chatroom.png)
+![home page](./images/Kuvaka_Chatroom.png)
 
 ## Installation Guide
 
